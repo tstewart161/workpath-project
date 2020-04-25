@@ -1,6 +1,5 @@
 import React from 'react';
 import UserInput from '../components/UserInput';
-import Results from '../components/Results'; 
 
 class Main extends React.Component {
 
@@ -16,8 +15,6 @@ class Main extends React.Component {
                 </div>
                 <div>
                     <UserInput />
-                    <br/>
-                    <Results />
                 </div>
             </div>
         )

@@ -12,10 +12,20 @@ class UserInput extends React.Component {
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleSubmit(event) {
+        this.setState({
+
+        })
         event.preventDefault();
+    }
+
+    handleChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
     render() {
@@ -26,11 +36,11 @@ class UserInput extends React.Component {
                         <div>
                             <label>
                                 Search term: 
-                                <input type="text" name="name" />
+                                <input type="text" name="term" onChange={this.handleChange}/>
                             </label>
                         </div>
                         <div>
-                            <select id = "dropdown">
+                            <select onChange={this.handleChange} id="dropdown" name="category">
                                 <option value="home">Home</option>
                                 <option value="arts">Arts</option>
                                 <option value="automobiles">Automobiles</option>

@@ -12,10 +12,13 @@ class Results extends React.Component {
             year:   'numeric',
             hour:   'numeric', 
             minute: '2-digit',
-            hour12: true
+            hour12: true,
+            timeZone: 'UTC + 12'
         };
         let dateString = new_date.toLocaleDateString('en-US', formatOptions)
                                  .replace(',', '') + " EST"; // "02/17/2017 11:32 PM EST"
+        // convert to Fiji
+
         return dateString
     }
 

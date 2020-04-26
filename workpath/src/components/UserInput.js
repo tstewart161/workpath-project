@@ -1,5 +1,6 @@
 import React from 'react';
 import Results from './Results';
+import axios from 'axios'
 
 class UserInput extends React.Component {
 
@@ -8,17 +9,29 @@ class UserInput extends React.Component {
 
         this.state = {
             category: 'home',
-            term: ''
+            term: '',
+            articles: []
         }
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleSubmit(event) {
-        this.setState({
+    getArticleList = (category) => {
+        let url = `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
+        let article_list = []
 
+        axios.get(url).then((res) => { 
+            article_list = res.data.results
+
+            this.setState({
+                articles: article_list
+            })
         })
+    }
+
+    // retrieve list of articles using category
+    handleSubmit(event) {
+        this.getArticleList(this.state.category)
         event.preventDefault();
     }
 
@@ -74,7 +87,7 @@ class UserInput extends React.Component {
                     </form>
                 </div>
                 <div>
-                    <Results term={this.state.term} category={this.state.category}/>
+                    <Results articles={this.state.articles} term={this.state.term} category={this.state.category}/>
                 </div>
             </div>
         )

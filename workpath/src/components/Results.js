@@ -11,7 +11,7 @@ class Results extends React.Component {
         }
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         let rawArticles = this.getNewsArticles(this.props.category)
         this.setState({
             articles: rawArticles
@@ -38,16 +38,20 @@ class Results extends React.Component {
         return articles
     }
 
-    renderArticleList = (term, category) => {
-        console.log(term)
-        console.log(category)
-        // render the articles from state.
+    renderArticleList = () => {
+        return (
+            <ul>
+                {this.state.articles.map((item, i) => (
+                    <li key={i}>{item.title}<br/>{item.url}<br/>{item.abstract}<br/>{item.published_date}</li>
+                ))}
+            </ul>
+        )
     }
 
     render() {
         return (
             <div>
-                {this.renderArticleList(this.props.term, this.props.category)}
+                {this.renderArticleList()}
             </div>
         )
     }

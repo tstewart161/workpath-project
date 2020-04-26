@@ -2,14 +2,6 @@ import React from 'react';
 
 class Results extends React.Component {
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            article_count: 0
-        }
-    }
-
     formatDate = (date) => {
         let new_date = new Date(date);
         let formatOptions = { 

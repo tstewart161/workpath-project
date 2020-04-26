@@ -27,7 +27,7 @@ class UserInput extends React.Component {
             let searched_articles = this.getSearchedArticles(article_list)
 
             this.setState({
-                articles: searched_articles,
+                articles: searched_articles.slice(0, 10), // limit results to first 10 articles
                 article_count: searched_articles.length
             })
         })

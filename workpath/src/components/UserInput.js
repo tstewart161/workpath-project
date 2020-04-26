@@ -12,32 +12,30 @@ class UserInput extends React.Component {
             term: '',
             articles: []
         }
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    getNewsArticles = (category) => {
-        let URL = `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
-        let articleList = []
+    getArticleList = (category) => {
+        let url = `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
+        let article_list = []
 
-        let self = this
-        axios.get(URL).then((res) => { 
-            articleList = res.data.results
-            self.setState({
-                articles: articleList
-            }, console.log(this.state.articles))
+        axios.get(url).then((res) => { 
+            article_list = res.data.results
+
+            this.setState({
+                articles: article_list
+            })
         })
     }
 
     // retrieve list of articles using category
     handleSubmit(event) {
-        this.getNewsArticles(this.state.category)
+        this.getArticleList(this.state.category)
         event.preventDefault();
     }
 
     handleChange(event) {
-        console.log(event.target.value)
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -89,7 +87,7 @@ class UserInput extends React.Component {
                     </form>
                 </div>
                 <div>
-                    <Results articles={this.state.rawArticles} term={this.state.term} category={this.state.category}/>
+                    <Results articles={this.state.articles} term={this.state.term} category={this.state.category}/>
                 </div>
             </div>
         )

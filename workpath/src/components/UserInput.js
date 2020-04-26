@@ -8,24 +8,23 @@ class UserInput extends React.Component {
         super(props);
 
         this.state = {
-            category: 'home',
-            term: '',
+            news_category: 'home',
+            search_term: '',
             search_by: 'title',
             articles: [],
             article_count: 0
         }
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    getArticleList = (category) => {
-        let url = `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
+    getArticleList = (news_category) => {
+        let url = `https://api.nytimes.com/svc/topstories/v2/${news_category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
 
-        axios.get(url).then((res) => { 
+        axios.get(url).then((res) => {
             let article_list = res.data.results
-            console.log(article_list)
             let searched_articles = this.getSearchedArticles(article_list)
-            console.log(searched_articles)
 
             this.setState({
                 articles: searched_articles,
@@ -35,19 +34,19 @@ class UserInput extends React.Component {
     }
 
     getSearchedArticles = (article_list) => {
-        let term = this.state.term.toLowerCase()
+        let search_term = this.state.search_term.toLowerCase()
         let search_by = this.state.search_by
         let articles = article_list
 
         let searched_articles = articles.filter((item) => {
-            return item[search_by].toLowerCase().includes(term)
+            return item[search_by].toLowerCase().includes(search_term)
         })
         
         return searched_articles
     }
 
     handleSubmit(event) {
-        this.getArticleList(this.state.category)
+        this.getArticleList(this.state.news_category)
         event.preventDefault();
     }
 
@@ -65,7 +64,7 @@ class UserInput extends React.Component {
                         <div>
                             <label>
                                 Search term: 
-                                <input type="text" name="term" onChange={this.handleChange}/>
+                                <input type="text" name="search_term" onChange={this.handleChange}/>
                             </label>
                             <div>
                                 <label>
@@ -82,7 +81,7 @@ class UserInput extends React.Component {
                         <div>
                             <label>
                                 Category: 
-                                <select onChange={this.handleChange} id="dropdown" name="category">
+                                <select onChange={this.handleChange} id="dropdown" name="news_category">
                                     <option value="home">Home</option>
                                     <option value="arts">Arts</option>
                                     <option value="automobiles">Automobiles</option>
@@ -118,9 +117,6 @@ class UserInput extends React.Component {
                 </div>
                 <div>
                     <Results articles={this.state.articles} 
-                             term={this.state.term} 
-                             category={this.state.category} 
-                             search_by={this.state.search_by}
                              article_count={this.state.article_count}/>
                 </div>
             </div>

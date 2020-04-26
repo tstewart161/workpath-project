@@ -3,23 +3,24 @@ import React from 'react';
 class Results extends React.Component {
 
     componentDidMount() {
-        let date = new Date('2017-02-17T22:32:25.000Z');
+        let date = '2017-02-17T22:32:25.000Z'
+        console.log(this.formatDate(date))
+    }
+
+    formatDate = (date) => {
+        let new_date = new Date(date);
         let formatOptions = { 
             day:    '2-digit', 
             month:  '2-digit', 
             year:   'numeric',
-            hour:   '2-digit', 
+            hour:   'numeric', 
             minute: '2-digit',
-            hour12: true 
+            hour12: true
         };
-        let dateString = date.toLocaleDateString('en-US', formatOptions);
-        // => "02/17/2017, 11:32 PM"
+        let dateString = new_date.toLocaleDateString('en-US', formatOptions).replace(',', '') + " EST";
+        // "02/17/2017 11:32 PM EST"
 
-        dateString = dateString.replace(',', '') + " EST"
-        // convert to Fiji
-
-
-        console.log(dateString);
+        return dateString
     }
 
     renderArticleList = () => {
@@ -36,7 +37,7 @@ class Results extends React.Component {
                         <br/>
                         {item.abstract}
                         <br/>
-                        {item.published_date}
+                        {this.formatDate(item.published_date)}
                     </li>
                 ))}
             </ul>

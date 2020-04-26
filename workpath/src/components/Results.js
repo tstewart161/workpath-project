@@ -2,9 +2,12 @@ import React from 'react';
 
 class Results extends React.Component {
 
-    componentDidMount() {
-        let date = '2017-02-17T22:32:25.000Z'
-        console.log(this.formatDate(date))
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            article_count: 0
+        }
     }
 
     formatDate = (date) => {
@@ -17,19 +20,29 @@ class Results extends React.Component {
             minute: '2-digit',
             hour12: true
         };
-        let dateString = new_date.toLocaleDateString('en-US', formatOptions).replace(',', '') + " EST";
-        // "02/17/2017 11:32 PM EST"
-
+        let dateString = new_date.toLocaleDateString('en-US', formatOptions)
+                                 .replace(',', '') + " EST"; // "02/17/2017 11:32 PM EST"
         return dateString
     }
 
+    getSearchedArticles = () => {
+        let term = this.props.term.toLowerCase()
+        let search_by = this.props.search_by
+        let articles = this.props.articles
+
+        let searched_articles = articles.filter((item) => {
+            return item[search_by].toLowerCase().includes(term)
+        })
+        
+        return searched_articles
+    }
+
     renderArticleList = () => {
-        // let term = this.props.term
-        // let searched_articles = this.props.articles.filter(item => {
-        //  item.title.includes(term) || item.url.includes(term) || item.abstract.i})
+        let searched_articles = this.getSearchedArticles()
+
         return (
             <ul>
-                {this.props.articles.map((item, i) => (
+                {searched_articles.map((item, i) => (
                     <li key={i}>
                         {item.title}
                         <br/>
@@ -48,7 +61,7 @@ class Results extends React.Component {
         return (
             <div>
                 <div>
-                    Number of results: {this.props.articles.length}
+                    Number of results: {this.state.article_count}
                 </div>
                 {this.renderArticleList()}
             </div>

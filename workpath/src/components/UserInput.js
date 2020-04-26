@@ -1,5 +1,6 @@
 import React from 'react';
 import Results from './Results';
+import '../styling/UserInput.css'
 import axios from 'axios'
 
 class UserInput extends React.Component {
@@ -59,7 +60,7 @@ class UserInput extends React.Component {
         return (
             <div>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form className="inputForm" onSubmit={this.handleSubmit}>
                         <div>
                             <label>
                                 Search term: 

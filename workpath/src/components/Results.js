@@ -11,32 +11,31 @@ class Results extends React.Component {
         }
     }
 
-    componentDidMount() {
-        let rawArticles = this.getNewsArticles(this.props.category)
-        this.setState({
-            articles: rawArticles
-        }, console.log(this.state.articles))
-    }
+    // componentDidMount() {
+    //     let rawArticles = this.getNewsArticles(this.props.category)
+    //     this.setState({
+    //         articles: rawArticles
+    //     })
+    // }
 
-    // Process:
-    // use category to return articles from api
-    // filter article list for key words
-    // only get 10 results
-    // render filtered article list
-    getNewsArticles = (category) => {
-        let URL = `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
-        let articles = []
+    // // Process:
+    // // use category to return articles from api
+    // // filter article list for key words
+    // // only get 10 results
+    // // render filtered article list
+    // getNewsArticles = (category) => {
+    //     let URL = `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
+    //     let articles = []
 
-        axios.get(URL).then((res) => { 
-            console.log(res.data.results)
-            articles = res.data.results
-            this.setState({
-                articles: articles
-            })
-        })
+    //     axios.get(URL).then((res) => { 
+    //         articles = res.data.results
+    //         this.setState({
+    //             articles: articles
+    //         })
+    //     })
 
-        return articles
-    }
+    //     return articles
+    // }
 
     renderArticleList = () => {
         return (

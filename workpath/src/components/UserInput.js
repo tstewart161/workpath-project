@@ -11,7 +11,8 @@ class UserInput extends React.Component {
             category: 'home',
             term: '',
             search_by: 'title',
-            articles: []
+            articles: [],
+            article_count: 0
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -22,14 +23,29 @@ class UserInput extends React.Component {
 
         axios.get(url).then((res) => { 
             let article_list = res.data.results
+            console.log(article_list)
+            let searched_articles = this.getSearchedArticles(article_list)
+            console.log(searched_articles)
 
             this.setState({
-                articles: article_list
+                articles: searched_articles,
+                article_count: searched_articles.length
             })
         })
     }
 
-    // retrieve list of articles using category
+    getSearchedArticles = (article_list) => {
+        let term = this.state.term.toLowerCase()
+        let search_by = this.state.search_by
+        let articles = article_list
+
+        let searched_articles = articles.filter((item) => {
+            return item[search_by].toLowerCase().includes(term)
+        })
+        
+        return searched_articles
+    }
+
     handleSubmit(event) {
         this.getArticleList(this.state.category)
         event.preventDefault();
@@ -104,7 +120,8 @@ class UserInput extends React.Component {
                     <Results articles={this.state.articles} 
                              term={this.state.term} 
                              category={this.state.category} 
-                             search_by={this.state.search_by}/>
+                             search_by={this.state.search_by}
+                             article_count={this.state.article_count}/>
                 </div>
             </div>
         )

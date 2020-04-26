@@ -25,20 +25,8 @@ class Results extends React.Component {
         return dateString
     }
 
-    getSearchedArticles = () => {
-        let term = this.props.term.toLowerCase()
-        let search_by = this.props.search_by
-        let articles = this.props.articles
-
-        let searched_articles = articles.filter((item) => {
-            return item[search_by].toLowerCase().includes(term)
-        })
-        
-        return searched_articles
-    }
-
     renderArticleList = () => {
-        let searched_articles = this.getSearchedArticles()
+        let searched_articles = this.props.articles
 
         return (
             <ul>
@@ -61,7 +49,7 @@ class Results extends React.Component {
         return (
             <div>
                 <div>
-                    Number of results: {this.state.article_count}
+                    Number of results: {this.props.article_count}
                 </div>
                 {this.renderArticleList()}
             </div>

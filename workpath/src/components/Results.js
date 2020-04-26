@@ -1,7 +1,9 @@
 import React from 'react';
+import '../styling/Results.css';
 
 class Results extends React.Component {
 
+    //TODO: add error handling: no results from search, 
     formatDate = (date) => {
         let new_date = new Date(date);
         let formatOptions = { 
@@ -18,19 +20,21 @@ class Results extends React.Component {
     }
 
     renderArticleList = () => {
-        let searched_articles = this.props.articles
+        let user_searched_articles = this.props.articles
 
         return (
             <ul>
-                {searched_articles.map((item, i) => (
+                {user_searched_articles.map((item, i) => (
                     <li key={i}>
-                        {item.title}
-                        <br/>
-                        {item.url}
-                        <br/>
-                        {item.abstract}
+                        <b>{item.title}</b>
                         <br/>
                         {this.formatDate(item.published_date)}
+                        <br/>
+                        <i><div className="articleAbstract">{item.abstract}</div></i>
+                        <br/>
+                        <div className="articleLink">{item.url}</div>
+                        <br/>
+                        <br/>
                     </li>
                 ))}
             </ul>
@@ -40,10 +44,14 @@ class Results extends React.Component {
     render() {
         return (
             <div>
+                {this.props.article_count > 0 &&
+                    <div className="numberOfResults">
+                        <u><h4>Number of results: {this.props.article_count}</h4></u>
+                    </div>
+                }
                 <div>
-                    Number of results: {this.props.article_count}
+                    {this.renderArticleList()}
                 </div>
-                {this.renderArticleList()}
             </div>
         )
     }

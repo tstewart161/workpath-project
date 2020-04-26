@@ -23,22 +23,21 @@ class UserInput extends React.Component {
         let url = `https://api.nytimes.com/svc/topstories/v2/${news_category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
 
         axios.get(url).then((res) => {
-            let article_list = res.data.results
-            let searched_articles = this.getSearchedArticles(article_list)
+            let raw_article_list = res.data.results
+            let user_searched_articles = this.getSearchedArticles(raw_article_list)
 
             this.setState({
-                articles: searched_articles.slice(0, 10), // limit results to first 10 articles
-                article_count: searched_articles.length
+                articles: user_searched_articles.slice(0, 10), // limit results to first 10 articles
+                article_count: user_searched_articles.length
             })
         })
     }
 
-    getSearchedArticles = (article_list) => {
+    getSearchedArticles = (raw_article_list) => {
         let search_term = this.state.search_term.toLowerCase()
         let search_by = this.state.search_by
-        let articles = article_list
 
-        let searched_articles = articles.filter((item) => {
+        let searched_articles = raw_article_list.filter((item) => {
             return item[search_by].toLowerCase().includes(search_term)
         })
         
@@ -112,7 +111,7 @@ class UserInput extends React.Component {
                                 </select>
                             </label>
                         </div>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Search" />
                     </form>
                 </div>
                 <div>

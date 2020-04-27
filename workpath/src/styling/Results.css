@@ -1,0 +1,17 @@
+ul {
+    text-align: justify;
+}
+
+.numberOfResults {
+    margin-left: 2rem;
+    text-align: justify;
+}
+
+.articleAbstract {
+    margin-right: 15rem;
+    margin-bottom: -1rem;
+}
+
+.articleLink {
+    color: darkred;
+}

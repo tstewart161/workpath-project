@@ -1,5 +1,6 @@
 import React from 'react';
 import Results from './Results';
+import '../styling/UserInput.css'
 import axios from 'axios'
 
 class UserInput extends React.Component {
@@ -12,7 +13,7 @@ class UserInput extends React.Component {
             search_term: '',
             search_by: 'title',
             articles: [],
-            article_count: 0
+            article_count: -1
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,25 +24,24 @@ class UserInput extends React.Component {
         let url = `https://api.nytimes.com/svc/topstories/v2/${news_category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
 
         axios.get(url).then((res) => {
-            let article_list = res.data.results
-            let searched_articles = this.getSearchedArticles(article_list)
+            let raw_article_list = res.data.results
+            let user_searched_articles = this.getSearchedArticles(raw_article_list)
 
             this.setState({
-                articles: searched_articles.slice(0, 10), // limit results to first 10 articles
-                article_count: searched_articles.length
+                articles: user_searched_articles.slice(0, 10), // limit results to first 10 articles
+                article_count: user_searched_articles.length
             })
         })
     }
 
-    getSearchedArticles = (article_list) => {
+    getSearchedArticles = (raw_article_list) => {
         let search_term = this.state.search_term.toLowerCase()
         let search_by = this.state.search_by
-        let articles = article_list
 
-        let searched_articles = articles.filter((item) => {
+        let searched_articles = raw_article_list.filter((item) => {
             return item[search_by].toLowerCase().includes(search_term)
         })
-        
+
         return searched_articles
     }
 
@@ -60,23 +60,23 @@ class UserInput extends React.Component {
         return (
             <div>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form className="inputForm" onSubmit={this.handleSubmit}>
                         <div>
-                            <label>
+                            <label className="searchBar">
                                 Search term: 
                                 <input type="text" name="search_term" onChange={this.handleChange}/>
                             </label>
-                            <div>
-                                <label>
-                                    Search by: 
-                                    <select onChange={this.handleChange} name="search_by">
-                                        <option value="title">Title</option>
-                                        <option value="url">URL</option>
-                                        <option value="abstract">Abstract</option>
-                                        <option value="date">Date</option>
-                                    </select>
-                                </label>
-                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                Search by: 
+                                <select onChange={this.handleChange} name="search_by">
+                                    <option value="title">Title</option>
+                                    <option value="url">URL</option>
+                                    <option value="abstract">Abstract</option>
+                                    <option value="date">Date</option>
+                                </select>
+                            </label>
                         </div>
                         <div>
                             <label>
@@ -112,7 +112,9 @@ class UserInput extends React.Component {
                                 </select>
                             </label>
                         </div>
-                        <input type="submit" value="Submit" />
+                        <div>
+                            <input type="submit" value="Search" />
+                        </div>
                     </form>
                 </div>
                 <div>

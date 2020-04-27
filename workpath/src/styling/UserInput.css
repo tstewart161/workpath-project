@@ -1,0 +1,11 @@
+form {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.searchBar {
+    width: min-content;
+}
+

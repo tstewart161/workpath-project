@@ -13,7 +13,7 @@ class UserInput extends React.Component {
             search_term: '',
             search_by: 'title',
             articles: [],
-            article_count: 0
+            article_count: -1
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -60,9 +60,9 @@ class UserInput extends React.Component {
         return (
             <div>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form className="inputForm" onSubmit={this.handleSubmit}>
                         <div>
-                            <label>
+                            <label className="searchBar">
                                 Search term: 
                                 <input type="text" name="search_term" onChange={this.handleChange}/>
                             </label>

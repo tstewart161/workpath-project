@@ -1,7 +1,11 @@
 form {
-    justify-content: left;
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: 0 auto;
 }
 
-label {
-    justify-content: left;
-} 
+.searchBar {
+    width: min-content;
+}
+

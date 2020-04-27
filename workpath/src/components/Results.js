@@ -46,6 +46,13 @@ class Results extends React.Component {
     render() {
         return (
             <div>
+                <br/>
+                <br/>
+                {this.props.article_count === 0 &&
+                    <div>
+                        No article results match that search.
+                    </div>
+                }
                 {this.props.article_count > 0 &&
                     <div className="numberOfResults">
                         <u><h4>Number of results: {this.props.article_count}</h4></u>

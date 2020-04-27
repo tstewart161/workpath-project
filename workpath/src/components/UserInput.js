@@ -41,7 +41,7 @@ class UserInput extends React.Component {
         let searched_articles = raw_article_list.filter((item) => {
             return item[search_by].toLowerCase().includes(search_term)
         })
-        
+
         return searched_articles
     }
 
@@ -60,23 +60,23 @@ class UserInput extends React.Component {
         return (
             <div>
                 <div>
-                    <form className="inputForm" onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
                         <div>
                             <label>
                                 Search term: 
                                 <input type="text" name="search_term" onChange={this.handleChange}/>
                             </label>
-                            <div>
-                                <label>
-                                    Search by: 
-                                    <select onChange={this.handleChange} name="search_by">
-                                        <option value="title">Title</option>
-                                        <option value="url">URL</option>
-                                        <option value="abstract">Abstract</option>
-                                        <option value="date">Date</option>
-                                    </select>
-                                </label>
-                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                Search by: 
+                                <select onChange={this.handleChange} name="search_by">
+                                    <option value="title">Title</option>
+                                    <option value="url">URL</option>
+                                    <option value="abstract">Abstract</option>
+                                    <option value="date">Date</option>
+                                </select>
+                            </label>
                         </div>
                         <div>
                             <label>
@@ -112,7 +112,9 @@ class UserInput extends React.Component {
                                 </select>
                             </label>
                         </div>
-                        <input type="submit" value="Search" />
+                        <div>
+                            <input type="submit" value="Search" />
+                        </div>
                     </form>
                 </div>
                 <div>

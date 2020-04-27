@@ -1,3 +1,7 @@
-.inputForm {
-    display: inline-block;
+form {
+    justify-content: left;
 }
+
+label {
+    justify-content: left;
+} 

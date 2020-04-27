@@ -20,6 +20,7 @@ class UserInput extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    // Gets list of all articles that fit user search.
     getArticleList = (news_category) => {
         let url = `https://api.nytimes.com/svc/topstories/v2/${news_category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
 
@@ -28,12 +29,13 @@ class UserInput extends React.Component {
             let user_searched_articles = this.getSearchedArticles(raw_article_list)
 
             this.setState({
-                articles: user_searched_articles.slice(0, 10), // limit results to first 10 articles
+                articles: user_searched_articles.slice(0, 10), // Limit results to first 10 articles
                 article_count: user_searched_articles.length
             })
         })
     }
 
+    // Searches raw article list by user input parameters.
     getSearchedArticles = (raw_article_list) => {
         let search_term = this.state.search_term.toLowerCase()
         let search_by = this.state.search_by

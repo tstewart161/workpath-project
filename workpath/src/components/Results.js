@@ -3,22 +3,23 @@ import '../styling/Results.css';
 
 class Results extends React.Component {
 
-    //TODO: add error handling: no results from search, 
     formatDate = (date) => {
-        let new_date = new Date(date);
+        let input_date = new Date(date);
         let formatOptions = { 
             day:    '2-digit', 
             month:  '2-digit', 
             year:   'numeric',
             hour:   'numeric', 
             minute: '2-digit',
-            hour12: true
+            hour12: true,
+            timeZone: 'Pacific/Fiji' // convert to fiji
         };
-        let dateString = new_date.toLocaleDateString('en-US', formatOptions)
-                                 .replace(',', '') + " EST"; // "02/17/2017 11:32 PM EST"
+        let formatted_date = input_date.toLocaleDateString('en-US', formatOptions)
+                                 .replace(',', '') + " FJT"; // "02/17/2017 11:32 PM FJT"
         // convert to Fiji
+        // let fiji_date = 
 
-        return dateString
+        return formatted_date
     }
 
     renderArticleList = () => {
@@ -48,12 +49,12 @@ class Results extends React.Component {
             <div>
                 <br/>
                 <br/>
-                {this.props.article_count === 0 &&
+                {this.props.article_count === 0 && // Only render this if 0 search results
                     <div>
                         No article results match that search.
                     </div>
                 }
-                {this.props.article_count > 0 &&
+                {this.props.article_count > 0 && // Only render this if > 0 search results
                     <div className="numberOfResults">
                         <u><h4>Number of results: {this.props.article_count}</h4></u>
                     </div>

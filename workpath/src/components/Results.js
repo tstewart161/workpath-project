@@ -4,6 +4,10 @@ import '../styling/Results.css';
 class Results extends React.Component {
 
     formatDate = (date) => {
+        if (date === null) {
+            return 'No date given'
+        }
+        
         let input_date = new Date(date);
         let formatOptions = { 
             day:    '2-digit', 

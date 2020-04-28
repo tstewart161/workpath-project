@@ -24,15 +24,20 @@ class UserInput extends React.Component {
     getArticleList = (news_category) => {
         let url = `https://api.nytimes.com/svc/topstories/v2/${news_category}.json?api-key=VAbwhpQE6koVHshxkEiy1fV2ZoiQDwny`
 
-        axios.get(url).then((res) => {
-            let raw_article_list = res.data.results
-            let user_searched_articles = this.getSearchedArticles(raw_article_list)
-
-            this.setState({
-                articles: user_searched_articles.slice(0, 10), // Limit results to first 10 articles
-                article_count: user_searched_articles.length
+        try {
+            axios.get(url).then((res) => {
+                let raw_article_list = res.data.results
+                let user_searched_articles = this.getSearchedArticles(raw_article_list)
+    
+                this.setState({
+                    articles: user_searched_articles.slice(0, 10), // Limit results to first 10 articles
+                    article_count: user_searched_articles.length
+                })
             })
-        })
+        } catch (error) {
+            console.log(error)
+            alert("Failed to reach NYTs, please try again later")
+        }
     }
 
     // Searches raw article list by user input parameters.

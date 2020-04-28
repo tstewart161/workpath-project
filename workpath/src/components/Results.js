@@ -7,7 +7,7 @@ class Results extends React.Component {
         if (date === null) {
             return 'No date given'
         }
-        
+
         let input_date = new Date(date);
         let formatOptions = { 
             day:    '2-digit', 
@@ -20,8 +20,6 @@ class Results extends React.Component {
         };
         let formatted_date = input_date.toLocaleDateString('en-US', formatOptions)
                                  .replace(',', '') + " FJT"; // "02/17/2017 11:32 PM FJT"
-        // convert to Fiji
-        // let fiji_date = 
 
         return formatted_date
     }
